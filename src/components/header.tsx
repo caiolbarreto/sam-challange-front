@@ -13,8 +13,10 @@ export function Header() {
         <Separator orientation="vertical" className="h-6" />
 
         <nav className="flex space-x-4">
-          <NavLink to="/">Home</NavLink>
+          <NavLink to="/">Catalog</NavLink>
           <NavLink to="/orders">Orders</NavLink>
+          <NavLink to="/snacks">Snacks</NavLink>
+          <NavLink to="/ingredients">Ingredients</NavLink>
         </nav>
       </div>
 
