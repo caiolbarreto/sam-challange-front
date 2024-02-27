@@ -1,10 +1,17 @@
-import { Button } from './components/ui/button'
+import { QueryClientProvider } from '@tanstack/react-query'
+import { RouterProvider } from 'react-router-dom'
+
+import { ThemeProvider } from './components/theme/theme-provider'
+import { queryClient } from './lib/react-query'
+import { router } from './routes'
 
 function App() {
   return (
-    <h1>
-      <Button>Click</Button>
-    </h1>
+    <ThemeProvider storageKey="aws-burger-theme" defaultTheme="light">
+      <QueryClientProvider client={queryClient}>
+        <RouterProvider router={router} />
+      </QueryClientProvider>
+    </ThemeProvider>
   )
 }
 
