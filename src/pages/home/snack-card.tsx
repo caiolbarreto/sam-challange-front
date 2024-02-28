@@ -9,20 +9,28 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 
-export function SnackCard() {
+interface SnackCardProps {
+  name: string
+  description: string
+  price: number
+}
+
+export function SnackCard({ name, description, price }: SnackCardProps) {
   return (
     <Card>
       <CardHeader>
         <img src={DefaultPhoto} alt="burger" className="w-full rounded-md" />
       </CardHeader>
       <CardContent>
-        <CardTitle>Burger</CardTitle>
+        <CardTitle>{name}</CardTitle>
         <CardDescription className="mt-2 flex flex-col">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum
-          repellendus ipsam neque? Adipisci fugit iusto molestiae quas natus,
-          eius a ab repellendus dicta quasi, accusamus odit optio dolor sunt.
-          Praesentium.
-          <span className="mt-3 font-semibold text-zinc-600">R$ 10,90</span>
+          <span className="h-[100px]">{description}</span>
+          <span className="mt-3 font-semibold text-zinc-600 dark:text-zinc-100">
+            {(price / 100).toLocaleString('pt-BR', {
+              style: 'currency',
+              currency: 'BRL',
+            })}
+          </span>
         </CardDescription>
       </CardContent>
       <CardFooter>

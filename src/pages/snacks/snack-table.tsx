@@ -1,4 +1,9 @@
-import { AddSnackDialog } from '@/components/add-snack-dialog'
+import { useQuery } from '@tanstack/react-query'
+import { useSearchParams } from 'react-router-dom'
+import { z } from 'zod'
+
+import { getSnacks } from '@/api/getSnacks'
+import { Pagination } from '@/components/pagination'
 import {
   Table,
   TableBody,
@@ -7,9 +12,28 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
+import { AddSnackDialog } from './add-snack-dialog'
 import { SnackTableRow } from './snack-table-row'
 
 export function Snacks() {
+  const [searchParams, setSearchParams] = useSearchParams()
+  const pageSize = 10
+
+  const pageIndex = z.coerce.number().parse(searchParams.get('page') ?? '1')
+
+  const { data: result } = useQuery({
+    queryKey: ['snacks', pageIndex],
+    queryFn: () => getSnacks(pageIndex, pageSize),
+  })
+
+  function handlePagination(pageIndex: number) {
+    setSearchParams((state) => {
+      state.set('page', pageIndex.toString())
+
+      return state
+    })
+  }
+
   return (
     <>
       <div className="flex flex-col gap-4">
@@ -23,38 +47,32 @@ export function Snacks() {
               <TableHeader>
                 <TableRow>
                   <TableHead className="w-[64px]"></TableHead>
-                  <TableHead>Identifier</TableHead>
-                  <TableHead>Name</TableHead>
-                  <TableHead>Description</TableHead>
-                  <TableHead>Price</TableHead>
+                  <TableHead className="w-[200px]">Identifier</TableHead>
+                  <TableHead className="w-[200px]">Name</TableHead>
+                  <TableHead className="w-[400px]">Description</TableHead>
+                  <TableHead className="w-[150px]">Price</TableHead>
                   <TableHead className="w-[100px]"></TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
-                {Array.from({ length: 10 }).map((_, index) => {
-                  return (
-                    <SnackTableRow
-                      key={index}
-                      snack={{
-                        snackId: '09b473e3-4612-4478-a95c-35802b815679',
-                        name: 'testing',
-                        description: 'description',
-                        price: 2364728,
-                      }}
-                    />
-                  )
-                })}
+                {result ? (
+                  result.data.map((snack) => {
+                    return <SnackTableRow key={snack.snackId} snack={snack} />
+                  })
+                ) : (
+                  <div>loading</div>
+                )}
               </TableBody>
             </Table>
           </div>
-          {/* {result && (
+          {result && (
             <Pagination
               pageIndex={result.meta.pageIndex}
               totalCount={result.meta.totalCount}
               perPage={result.meta.perPage}
               onPageChange={handlePagination}
             />
-          )} */}
+          )}
         </div>
       </div>
     </>
