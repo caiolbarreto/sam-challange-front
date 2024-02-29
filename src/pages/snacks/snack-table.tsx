@@ -59,7 +59,11 @@ export function Snacks() {
                   return <SnackTableRow key={snack.snackId} snack={snack} />
                 })
               ) : (
-                <div>loading</div>
+                <tr>
+                  <td>
+                    <p>loading</p>
+                  </td>
+                </tr>
               )}
             </TableBody>
           </Table>

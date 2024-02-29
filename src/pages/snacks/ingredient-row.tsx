@@ -29,7 +29,10 @@ export function IngredientRow({
         <Button
           variant="ghost"
           className="text-primary"
-          onClick={() => handleChangeQuantity(ingredientId, 'minus')}
+          onClick={(event) => {
+            event.preventDefault()
+            handleChangeQuantity(ingredientId, 'minus')
+          }}
         >
           <Minus className="h-3 w-3" />
         </Button>
@@ -38,7 +41,10 @@ export function IngredientRow({
           variant="ghost"
           disabled={currentQuantity === availableQuantity}
           className="text-primary"
-          onClick={() => handleChangeQuantity(ingredientId, 'plus')}
+          onClick={(event) => {
+            event.preventDefault()
+            handleChangeQuantity(ingredientId, 'plus')
+          }}
         >
           <Plus className="h-3 w-3" />
         </Button>
