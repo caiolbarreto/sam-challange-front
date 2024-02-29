@@ -62,7 +62,7 @@ export function SnackTableRow({ snack }: snackTableRowProps) {
         </TableCell>
         <TableCell>
           <Trash
-            className="h-4 w-4 cursor-pointer text-rose-700 dark:text-rose-900"
+            className="h-4 w-4 cursor-pointer text-rose-600 dark:text-rose-800"
             onClick={handleOpenDeleteModal}
           />
         </TableCell>

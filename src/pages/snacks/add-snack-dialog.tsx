@@ -1,7 +1,12 @@
+import { useState } from 'react'
+
+import { Ingredient } from '@/api/getIngredients'
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogDescription,
+  DialogFooter,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
@@ -10,9 +15,21 @@ import {
 import { Button } from '../../components/ui/button'
 import { Input } from '../../components/ui/input'
 import { Label } from '../../components/ui/label'
-import { Separator } from '../../components/ui/separator'
+import { SelectIngredients } from './select-ingredients-box'
+
+export type SelectedIngredientsSchema = Ingredient & {
+  currentQuantity: number
+}
 
 export function AddSnackDialog() {
+  const [selectedIngredients, setSelectedIngredients] = useState<
+    SelectedIngredientsSchema[]
+  >([])
+
+  function handleSelectIngredients(ingredients: SelectedIngredientsSchema[]) {
+    setSelectedIngredients(ingredients)
+  }
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -25,48 +42,37 @@ export function AddSnackDialog() {
             Fill with the new snack information
           </DialogDescription>
         </DialogHeader>
-        <div className="flex gap-10">
-          <div className="space-y-5">
+        <div className="scrollbar-hide h-[550px] gap-10 overflow-y-scroll px-1">
+          <div className="flex-1 space-y-5">
             <div className="space-y-2">
-              <Label htmlFor="name" className="font-semibold">
-                Name
-              </Label>
+              <Label htmlFor="name">Name</Label>
               <Input id="name" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="description" className="font-semibold">
-                Description
-              </Label>
+              <Label htmlFor="description">Description</Label>
               <Input id="description" />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="price" className="font-semibold">
-                Price
-              </Label>
+              <Label htmlFor="price">Price</Label>
               <Input id="price" />
             </div>
           </div>
-          <Separator orientation="vertical" />
-
           <div>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
-            <p>oadsfkajhsdfajdfs</p>
+            <h2 className="my-5 font-bold">Choose your ingredients</h2>
+            <SelectIngredients
+              selectedIngredients={selectedIngredients}
+              handleSelectIngredients={handleSelectIngredients}
+            />
           </div>
         </div>
+        <DialogFooter>
+          <div className="mt-5 space-x-2">
+            <DialogClose>
+              <Button variant="ghost">Cancel</Button>
+            </DialogClose>
+            <Button>Save</Button>
+          </div>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )
