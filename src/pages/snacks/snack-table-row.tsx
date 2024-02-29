@@ -1,6 +1,9 @@
+import { useMutation } from '@tanstack/react-query'
 import { Search, Trash } from 'lucide-react'
 import { useState } from 'react'
+import { toast } from 'sonner'
 
+import { deleteSnack } from '@/api/deleteSnack'
 import { DeleteItemDialog } from '@/components/delete-item-dialog'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
@@ -30,13 +33,29 @@ export function SnackTableRow({ snack }: snackTableRowProps) {
     setOpenDeleteDialog(!openDeleteDialog)
   }
 
+  const { mutateAsync: deleteSnackFn, isPending: isDeleting } = useMutation({
+    mutationFn: deleteSnack,
+  })
+
+  async function handleDelete() {
+    try {
+      await deleteSnackFn({ snackId: snack.snackId })
+
+      toast.success('Snack deleted successfully!')
+      setOpenDeleteDialog(false)
+    } catch {
+      toast.error('Error when deleting the snack.')
+    }
+  }
+
   return (
     <>
       <DeleteItemDialog
         open={openDeleteDialog}
         type="snack"
         handleOpenModal={handleOpenDeleteModal}
-        handleDelete={() => {}}
+        handleDelete={handleDelete}
+        isPending={isDeleting}
       />
       <TableRow>
         <TableCell>

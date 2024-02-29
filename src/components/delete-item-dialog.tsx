@@ -15,6 +15,7 @@ interface DeleteItemDialog {
   type: string
   handleDelete: () => void
   handleOpenModal: () => void
+  isPending: boolean
 }
 
 export function DeleteItemDialog({
@@ -22,6 +23,7 @@ export function DeleteItemDialog({
   type,
   handleDelete,
   handleOpenModal,
+  isPending,
 }: DeleteItemDialog) {
   return (
     <Dialog open={open} onOpenChange={handleOpenModal}>
@@ -34,10 +36,12 @@ export function DeleteItemDialog({
         </DialogHeader>
         <DialogFooter>
           <div className="mt-5 space-x-2">
-            <DialogClose>
+            <DialogClose asChild>
               <Button variant="ghost">Cancel</Button>
             </DialogClose>
-            <Button onClick={handleDelete}>Delete</Button>
+            <Button onClick={handleDelete} disabled={isPending}>
+              Delete
+            </Button>
           </div>
         </DialogFooter>
       </DialogContent>

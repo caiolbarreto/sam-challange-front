@@ -49,6 +49,7 @@ export function AddSnackDialog() {
   const { mutateAsync: createSnackFn, isPending: isCreating } = useMutation({
     mutationFn: createSnack,
   })
+
   const handleSelectIngredients = (
     ingredients: SelectedIngredientsSchema[],
   ) => {
@@ -160,7 +161,7 @@ export function AddSnackDialog() {
           </div>
           <DialogFooter>
             <div className="mt-5 space-x-2">
-              <DialogClose>
+              <DialogClose asChild>
                 <Button variant="ghost">Cancel</Button>
               </DialogClose>
               <Button
