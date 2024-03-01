@@ -5,8 +5,8 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { createSnack } from '@/api/createSnack'
-import { Ingredient } from '@/api/getIngredients'
+import { createSnack } from '@/api/create-snack'
+import { Ingredient } from '@/api/get-ingredients'
 import {
   Dialog,
   DialogClose,

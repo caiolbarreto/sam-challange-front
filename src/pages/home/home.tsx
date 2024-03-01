@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { getSnacks } from '@/api/getSnacks'
+import { getSnacks } from '@/api/get-snacks'
 
 import { SnackCard } from './snack-card'
 

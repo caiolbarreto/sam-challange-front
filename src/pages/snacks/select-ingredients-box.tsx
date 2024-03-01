@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useEffect, useRef, useState } from 'react'
 
-import { getIngredients } from '@/api/getIngredients'
+import { getIngredients } from '@/api/get-ingredients'
 import {
   Command,
   CommandEmpty,

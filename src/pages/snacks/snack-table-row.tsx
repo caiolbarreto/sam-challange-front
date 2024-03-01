@@ -3,7 +3,7 @@ import { Search, Trash } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 
-import { deleteSnack } from '@/api/deleteSnack'
+import { deleteSnack } from '@/api/delete-snack'
 import { DeleteItemDialog } from '@/components/delete-item-dialog'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
