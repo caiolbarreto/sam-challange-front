@@ -118,7 +118,7 @@ export function AddSnackDialog() {
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleAddSnack)}>
-          <div className="scrollbar-hide h-[550px] gap-10 overflow-y-scroll px-1">
+          <div className="h-[550px] gap-10 overflow-y-scroll px-1 scrollbar-hide">
             <div className="flex-1 space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="name">Name</Label>

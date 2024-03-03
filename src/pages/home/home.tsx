@@ -18,14 +18,7 @@ export function Home() {
       <div className="grid grid-cols-5 gap-5">
         {result ? (
           result.data.map((snack) => {
-            return (
-              <SnackCard
-                key={snack.snackId}
-                name={snack.name}
-                description={snack.description}
-                price={snack.price}
-              />
-            )
+            return <SnackCard key={snack.snackId} snack={snack} />
           })
         ) : (
           <div>loading</div>

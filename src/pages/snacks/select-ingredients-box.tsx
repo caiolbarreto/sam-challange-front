@@ -12,8 +12,8 @@ import {
 } from '@/components/ui/command'
 import { ScrollArea } from '@/components/ui/scroll-area'
 
+import { ItemRow } from '../../components/item-row'
 import { SelectedIngredientsSchema } from './add-snack-dialog'
-import { IngredientRow } from './ingredient-row'
 
 interface SelectIngredientsProps {
   selectedIngredients: SelectedIngredientsSchema[]
@@ -131,9 +131,9 @@ export function SelectIngredients({
       )}
       {selectedIngredients.map((ingredient) => {
         return (
-          <IngredientRow
+          <ItemRow
             key={ingredient.id}
-            ingredientId={ingredient.id}
+            itemId={ingredient.id}
             name={ingredient.name}
             availableQuantity={ingredient.quantity}
             handleChangeQuantity={handleChangeQuantity}

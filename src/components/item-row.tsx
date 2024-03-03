@@ -2,28 +2,30 @@ import { Minus, Plus } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-interface IngredientsRowProps {
-  ingredientId: string
+interface ItemsRowProps {
+  itemId: string
   name: string
-  availableQuantity: number
-  handleChangeQuantity: (ingredientId: string, operation: string) => void
+  availableQuantity?: number
+  handleChangeQuantity: (itemId: string, operation: string) => void
   currentQuantity: number
 }
 
-export function IngredientRow({
-  ingredientId,
+export function ItemRow({
+  itemId,
   name,
   availableQuantity,
   currentQuantity,
   handleChangeQuantity,
-}: IngredientsRowProps) {
+}: ItemsRowProps) {
   return (
     <div className="mt-2 flex w-full justify-between px-1">
       <div>
         <span className="text-sm font-bold">{name}</span>
-        <p className="text-xs font-medium text-muted-foreground">
-          Available quantity: {availableQuantity}
-        </p>
+        {availableQuantity && (
+          <p className="text-xs font-medium text-muted-foreground">
+            Available quantity: {availableQuantity}
+          </p>
+        )}
       </div>
       <div className="flex items-center gap-2">
         <Button
@@ -31,7 +33,7 @@ export function IngredientRow({
           className="text-primary"
           onClick={(event) => {
             event.preventDefault()
-            handleChangeQuantity(ingredientId, 'minus')
+            handleChangeQuantity(itemId, 'minus')
           }}
         >
           <Minus className="h-3 w-3" />
@@ -43,7 +45,7 @@ export function IngredientRow({
           className="text-primary"
           onClick={(event) => {
             event.preventDefault()
-            handleChangeQuantity(ingredientId, 'plus')
+            handleChangeQuantity(itemId, 'plus')
           }}
         >
           <Plus className="h-3 w-3" />

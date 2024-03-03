@@ -8,25 +8,33 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { useCart } from '@/context/cart-context'
 
 interface SnackCardProps {
-  name: string
-  description: string
-  price: number
+  snack: {
+    snackId: string
+    name: string
+    description: string
+    price: number
+  }
 }
 
-export function SnackCard({ name, description, price }: SnackCardProps) {
+export function SnackCard({ snack }: SnackCardProps) {
+  const { cartItems, handleCartAddItem, handleCartRemoveItem } = useCart()
+  const isItemInCart =
+    cartItems && cartItems.some((item) => item.id === snack.snackId)
+
   return (
     <Card>
       <CardHeader>
         <img src={DefaultPhoto} alt="burger" className="w-full rounded-md" />
       </CardHeader>
       <CardContent>
-        <CardTitle>{name}</CardTitle>
+        <CardTitle>{snack.name}</CardTitle>
         <CardDescription className="mt-2 flex flex-col">
-          <span className="h-[100px]">{description}</span>
+          <span className="h-[100px]">{snack.description}</span>
           <span className="mt-3 font-semibold text-zinc-600 dark:text-zinc-100">
-            {(price / 100).toLocaleString('pt-BR', {
+            {(snack.price / 100).toLocaleString('pt-BR', {
               style: 'currency',
               currency: 'BRL',
             })}
@@ -34,9 +42,29 @@ export function SnackCard({ name, description, price }: SnackCardProps) {
         </CardDescription>
       </CardContent>
       <CardFooter>
-        <Button variant="default" className="w-full">
-          Add to cart
-        </Button>
+        {isItemInCart ? (
+          <Button
+            variant="coloredOutline"
+            className="w-full"
+            onClick={() => handleCartRemoveItem(snack.snackId)}
+          >
+            Remove from cart
+          </Button>
+        ) : (
+          <Button
+            variant="default"
+            className="w-full"
+            onClick={() =>
+              handleCartAddItem({
+                id: snack.snackId,
+                name: snack.name,
+                quantity: 1,
+              })
+            }
+          >
+            Add to cart
+          </Button>
+        )}
       </CardFooter>
     </Card>
   )
