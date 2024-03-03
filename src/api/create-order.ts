@@ -6,11 +6,11 @@ interface SnackDetails {
 }
 
 interface CreateOrderBody {
-  snacksDetails: SnackDetails[]
+  orderDetails: SnackDetails[]
 }
 
-export async function createOrder({ snacksDetails }: CreateOrderBody) {
+export async function createOrder({ orderDetails }: CreateOrderBody) {
   await api.post('/orders', {
-    snacksDetails,
+    orderDetails,
   })
 }
